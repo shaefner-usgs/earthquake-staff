@@ -22,11 +22,6 @@ class EmployeeListView {
     $html = '<table>';
 
     foreach ($this->_collection->employees as $employee) {
-      $nick = '';
-      if ($employee->nickname) {
-        $nick = '(' . $employee->nickname . ')';
-      }
-
       $firstLetter = $employee->getFirstLetter();
       if ($firstLetterPrev !== $firstLetter) {
         $html .= sprintf('<tr id="%s"><th colspan="3">%s</th></tr>',
@@ -38,13 +33,10 @@ class EmployeeListView {
       $firstLetterPrev = $firstLetter;
 
       $html .= sprintf ('<tr>
-          <td><a href="%s/">%s, %s %s %s</a></td><td>%s</td><td>%s</td>
+          <td><a href="%s/">%s</a></td><td>%s</td><td>%s</td>
         </tr>',
         strstr($employee->email, '@', true),
-        $employee->lastname,
-        $employee->firstname,
-        $employee->middlename,
-        $nick,
+        $employee->getFullName($lastFirst = true),
         $employee->email,
         $employee->phone
       );
