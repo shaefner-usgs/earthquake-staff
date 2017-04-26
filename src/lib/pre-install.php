@@ -61,6 +61,12 @@ file_put_contents($HTTPD_CONF, '
 
   ' . $aliases . '
 
+  RewriteEngine on
+
+  #Pretty URLs
+  RewriteRule ^' . $MOUNT_PATH . '/([a-z0-9\.-_]+)/$ ' .
+    $MOUNT_PATH . '/employee.php?id=$1 [L,PT]
+
   <Location ' . $MOUNT_PATH . '>
     Order allow,deny
     Allow from all
