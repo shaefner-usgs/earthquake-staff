@@ -100,9 +100,9 @@ class Db {
     $params = [];
     $where = '`team` = "WEHZ"';
 
-    if (safeParam($shortname)) {
-      $params['shortname'] = $shortname;
-      $where .= " AND `email` LIKE '$email_sn@%%'";
+    if ($shortname) {
+      $params['shortname'] = "$shortname@%";
+      $where .= ' AND `email` LIKE :shortname';
     }
 
     $sql = "SELECT * FROM teaminfo_members
