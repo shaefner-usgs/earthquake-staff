@@ -51,6 +51,10 @@ var connect = {
 
   rules: [
     {
+      from: '^' + MOUNT_PATH + '/([a-z0-9\.-_]+)/$',
+      to: '/employee.php?id=$1'
+    },
+    {
       from: '^' + MOUNT_PATH + '/(.*)$',
       to: '/$1'
     }
