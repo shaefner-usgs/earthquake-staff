@@ -21,12 +21,12 @@ $PROMPTS = array(
   ),
   'DATA_DIR' => array(
     'prompt' => 'Absolute path to application data directory',
-    'default' => str_replace('/apps/', '/data/', $APP_DIR),
+    'default' => '',
     'secure' => false
   ),
   'DATA_HOST' => array(
     'prompt' => 'Host where data files are served',
-    'default' => 'localhost',
+    'default' => '',
     'secure' => false
   ),
   'DB_DSN' => array(
