@@ -19,14 +19,13 @@ if (!isset($TEMPLATE)) {
     $rsEmployee->setFetchMode(PDO::FETCH_CLASS, Employee);
     $Employee = $rsEmployee->fetch();
     $TITLE = $Employee->getFullName();
-    $TITLETAG = "$TITLE | Earthquake Science Center";
   } else {
     $error = '<p class="alert error">ERROR: Employee Not Found</p>';
     $TITLE = $id;
   }
 
-  $HEAD = '';
-  $FOOT = '';
+  $TITLETAG = "$TITLE | Earthquake Science Center";
+  $HEAD = '<link rel="stylesheet" href="employee.css" />';
 
   include 'template.inc.php';
 }
