@@ -9,20 +9,18 @@ include_once '../lib/classes/EmployeeListView.class.php'; // view
 include_once '../lib/classes/EmployeeCollection.class.php'; // collection
 
 if (!isset($TEMPLATE)) {
-  $TITLE = '';
-  $HEAD = '';
-  $FOOT = '';
+  $TITLE = 'Earthquake Science Center Staff Directory';
+  $HEAD = '<link rel="stylesheet" href="index.css" />';
 
   include 'template.inc.php';
 }
 
+// Query db
 $db = new Db();
-$employeeCollection = new employeeCollection();
-
-// Db query result
 $rsEmployees = $db->queryMembers();
 
-// Create employee collection
+// Create Employee Collection
+$employeeCollection = new employeeCollection();
 $rsEmployees->setFetchMode(PDO::FETCH_CLASS, Employee);
 $employees = $rsEmployees->fetchAll();
 foreach($employees as $employee) {
@@ -30,7 +28,6 @@ foreach($employees as $employee) {
 }
 
 $view = new EmployeeListView($employeeCollection);
-
 $view->render();
 
 ?>
