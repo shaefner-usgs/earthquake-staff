@@ -10,7 +10,7 @@ include_once '../lib/classes/EmployeeCollection.class.php'; // collection
 
 if (!isset($TEMPLATE)) {
   $TITLE = 'Earthquake Science Center Staff Directory';
-  $HEAD = '<link rel="stylesheet" href="index.css" />';
+  $HEAD = '<link rel="stylesheet" href="css/index.css" />';
 
   include 'template.inc.php';
 }

@@ -25,7 +25,7 @@ if (!isset($TEMPLATE)) {
   }
 
   $TITLETAG = "$TITLE | Earthquake Science Center";
-  $HEAD = '<link rel="stylesheet" href="employee.css" />';
+  $HEAD = '<link rel="stylesheet" href="../css/employee.css" />';
 
   include 'template.inc.php';
 }
