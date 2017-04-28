@@ -1,4 +1,51 @@
-#application:after {
-  content: 'css content';
-  display: block;
+@import '_common.scss';
+
+th, td {
+  padding: .5rem .75rem;
+}
+th {
+  font-size: 1.5em;
+  font-weight: normal;
+  padding-top: 1em;
+}
+
+tr {
+  transition: background .3s;
+
+  &:hover {
+    background: rgba(221, 255, 177, 0.33);
+    transition: background .2s;
+  }
+
+  &.header:hover {
+    background: none;
+  }
+}
+
+/* 'better' jumplist:
+  1. doesn't wrap pipes at beginning of new lines
+  2. makes entire region clickable between pipes
+*/
+.jumplist {
+  margin-top: 2em;
+
+  /* first override 'default' rules */
+  > a {
+    margin: 0;
+
+    + a:before {
+      content: '';
+      margin: 0;
+    }
+
+    /* now set 'new' rules */
+    padding-left: .75em;
+
+    &:not(:last-child):after {
+      color: #ccc;
+      display: inline-block;
+      content: '|';
+      margin: 0 0 0 .75em;
+    }
+  }
 }
