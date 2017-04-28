@@ -26,7 +26,7 @@ class EmployeeListView {
     foreach ($this->_collection->employees as $employee) {
       $firstLetter = $employee->getFirstLetter();
       if ($firstLetterPrev !== $firstLetter) {
-        $html .= sprintf('<tr id="%s"><th colspan="3">%s</th></tr>',
+        $html .= sprintf('<tr id="%s" class="header"><th colspan="3">%s</th></tr>',
           $firstLetter,
           $firstLetter
         );
