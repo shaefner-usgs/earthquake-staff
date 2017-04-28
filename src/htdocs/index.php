@@ -21,7 +21,7 @@ $rsEmployees = $Db->queryMembers();
 
 // Create Employee Collection
 $EmployeeCollection = new EmployeeCollection();
-$rsEmployees->setFetchMode(PDO::FETCH_CLASS, Employee);
+$rsEmployees->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, Employee);
 $Employees = $rsEmployees->fetchAll();
 foreach($Employees as $Employee) {
   $EmployeeCollection->add($Employee);

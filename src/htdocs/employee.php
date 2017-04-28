@@ -16,7 +16,7 @@ if (!isset($TEMPLATE)) {
 
   // Create Employee
   if ($rsEmployee->rowCount() === 1) {
-    $rsEmployee->setFetchMode(PDO::FETCH_CLASS, Employee);
+    $rsEmployee->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, Employee);
     $Employee = $rsEmployee->fetch();
     $TITLE = $Employee->getFullName();
   } else {
