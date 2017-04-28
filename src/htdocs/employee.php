@@ -11,8 +11,8 @@ if (!isset($TEMPLATE)) {
   $id = safeParam('id');
 
   // Query db
-  $db = new Db();
-  $rsEmployee = $db->queryMembers($id);
+  $Db = new Db();
+  $rsEmployee = $Db->queryMembers($id);
 
   // Create Employee
   if ($rsEmployee->rowCount() === 1) {
@@ -35,7 +35,7 @@ if (isset($error)) {
   return;
 }
 
-$view = new EmployeeView($Employee);
-$view->render();
+$View = new EmployeeView($Employee);
+$View->render();
 
 ?>

@@ -16,18 +16,18 @@ if (!isset($TEMPLATE)) {
 }
 
 // Query db
-$db = new Db();
-$rsEmployees = $db->queryMembers();
+$Db = new Db();
+$rsEmployees = $Db->queryMembers();
 
 // Create Employee Collection
-$employeeCollection = new employeeCollection();
+$EmployeeCollection = new EmployeeCollection();
 $rsEmployees->setFetchMode(PDO::FETCH_CLASS, Employee);
-$employees = $rsEmployees->fetchAll();
-foreach($employees as $employee) {
-  $employeeCollection->add($employee);
+$Employees = $rsEmployees->fetchAll();
+foreach($Employees as $Employee) {
+  $EmployeeCollection->add($Employee);
 }
 
-$view = new EmployeeListView($employeeCollection);
-$view->render();
+$View = new EmployeeListView($EmployeeCollection);
+$View->render();
 
 ?>
