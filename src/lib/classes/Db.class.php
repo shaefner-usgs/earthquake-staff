@@ -97,15 +97,18 @@ class Db {
    *     Optional email shortname (text before '@') of staff member to query
    */
   public function queryMembers ($shortname=NULL) {
+    $join = '';
     $params = [];
     $where = '`team` = "WEHZ"';
 
     if ($shortname) {
+      $join = 'LEFT JOIN teaminfo_locations n USING (location)';
       $params['shortname'] = "$shortname@%";
       $where .= ' AND `email` LIKE :shortname';
     }
 
     $sql = "SELECT * FROM teaminfo_members
+      $join
       WHERE $where
       ORDER BY `lastname` ASC, `firstname` ASC";
 
