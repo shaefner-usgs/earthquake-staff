@@ -16,6 +16,8 @@ class EmployeeListView {
 
   /**
    * Create HTML for employee list
+   *
+   * @return $html {String}
    */
   private function _getEmployeeList () {
     $firstLetterPrev = '';
@@ -49,22 +51,27 @@ class EmployeeListView {
 
   /**
    * Create HTML for jump list
+   *
+   * @return $html {String}
    */
   private function _getJumpList () {
-    $html = '<ul>';
+    $html = '<nav class="jumplist">';
 
     foreach($this->_letters as $letter) {
-      $html .= sprintf('<li><a href="#%s">%s</a></li>',
+      $html .= sprintf('<a href="#%s">%s</a>',
         $letter,
         $letter
       );
     }
 
-    $html .= '</ul>';
+    $html .= '</nav>';
 
     return $html;
   }
 
+  /**
+   * Render HTML
+   */
   public function render () {
     $employeeList = $this->_getEmployeeList(); // creates letters[] used by _getJumpList
 
