@@ -13,6 +13,33 @@ class EmployeeView {
   }
 
   /**
+   * Get HTML for address block
+   *
+   * @return $html {String}
+   */
+  public function getAddress () {
+    $html = sprintf('
+      <div class="vcard">
+        <div class="adr">
+          <div class="fn org">%s</div>
+          <div class="street-address">%s %s</div>
+          <span class="locality">%s</span>,
+          <span class="region">%s</span>
+          <span class="postal-code">%s</span>
+        </div>
+      </div>',
+      $this->_model->institution,
+      $this->_model->address1,
+      $this->_model->address2,
+      $this->_model->city,
+      $this->_model->state,
+      $this->_model->zipcode
+    );
+
+    return $html;
+  }
+
+  /**
    * Get HTML for back link
    *
    * @return {String}
@@ -44,7 +71,7 @@ class EmployeeView {
       );
     }
     $html .= sprintf('<tr><th>Address</th><td>%s</td></tr>',
-      $this->_model->getAddress()
+      $this->getAddress()
     );
     if ($this->_model->webpage) {
       $html .= sprintf('<tr><th>Web</th><td><a href="%s">%s</a></td></tr>',

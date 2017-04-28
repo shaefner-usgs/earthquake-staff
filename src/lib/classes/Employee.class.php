@@ -21,33 +21,6 @@ class Employee {
   }
 
   /**
-   * Get HTML for address block
-   *
-   * @return $html {String}
-   */
-  public function getAddress () {
-    $html = sprintf('
-      <div class="vcard">
-        <div class="adr">
-          <div class="fn org">%s</div>
-          <div class="street-address">%s %s</div>
-          <span class="locality">%s</span>,
-          <span class="region">%s</span>
-          <span class="postal-code">%s</span>
-        </div>
-      </div>',
-      $this->_data['institution'],
-      $this->_data['address1'],
-      $this->_data['address2'],
-      $this->_data['city'],
-      $this->_data['state'],
-      $this->_data['zipcode']
-    );
-
-    return $html;
-  }
-
-  /**
    * Get first letter of employee's last name
    *
    * @return {String}
