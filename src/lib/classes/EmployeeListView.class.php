@@ -34,9 +34,8 @@ class EmployeeListView {
       }
 
       if ($setPrev !== $set) {
-        $setId = strstr($set, ',', true); // keep only portion up to ','
         $html .= sprintf('<tr id="%s" class="header"><th colspan="3">%s</th></tr>',
-          $setId,
+          $set,
           $set
         );
         $this->_sets[] = $set;
@@ -68,9 +67,8 @@ class EmployeeListView {
     $html = '<nav class="jumplist">';
 
     foreach($this->_sets as $set) {
-      $setId = strstr($set, ',', true); // keep only portion up to ','
       $html .= sprintf('<a href="#%s">%s</a>',
-        $setId,
+        $set,
         $set
       );
     }
