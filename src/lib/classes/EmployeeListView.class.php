@@ -1,5 +1,7 @@
 <?php
 
+include_once '../conf/config.inc.php'; // app config
+
 /**
  * Employees list view - creates HTML for index.php
  *
@@ -22,12 +24,12 @@ class EmployeeListView {
   private function _getEmployeeList () {
     $html = '<table>';
     $setPrev = '';
-    $sortField = $this->_collection->sortField;
+    $sortBy = $this->_collection->sortBy;
 
     foreach ($this->_collection->employees as $employee) {
-      if ($sortField === 'lastname') {
+      if ($sortBy === 'lastname') {
         $set = $employee->getFirstLetter();
-      } else if ($sortField === 'location') {
+      } else if ($sortBy === 'location') {
         $set = $employee->location;
       }
 
@@ -41,8 +43,9 @@ class EmployeeListView {
       $setPrev = $set;
 
       $html .= sprintf ('<tr>
-          <td><a href="%s/">%s</a></td><td>%s</td><td>%s</td>
+          <td><a href="%s/%s/">%s</a></td><td>%s</td><td>%s</td>
         </tr>',
+        $GLOBALS['CONFIG']['MOUNT_PATH'],
         strstr($employee->email, '@', true),
         $employee->getFullName($lastFirst = true),
         $employee->email,
@@ -76,11 +79,36 @@ class EmployeeListView {
   }
 
   /**
+   * Create HTML for sort module
+   *
+   * @return $html {String}
+   */
+  private function _getSortModule () {
+    $selected[$this->_collection->sortBy] = 'selected';
+
+    $html = sprintf('<div class="sort">
+        <p>Sort by:</p>
+        <ul class="no-style">
+          <li><a class="%s" href="%s/lastname/">Last Name</a></li>
+          <li><a class="%s" href="%s/location/">Location</a></li>
+        </ul>
+      </div>',
+      $selected['lastname'],
+      $GLOBALS['CONFIG']['MOUNT_PATH'],
+      $selected['location'],
+      $GLOBALS['CONFIG']['MOUNT_PATH']
+    );
+
+    return $html;
+  }
+
+  /**
    * Render HTML
    */
   public function render () {
-    $employeeList = $this->_getEmployeeList(); // creates $this->_sets[] used by _getJumpList
+    $employeeList = $this->_getEmployeeList(); // populates $this->_sets[] used by _getJumpList
 
+    print $this->_getSortModule();
     print $this->_getJumpList();
     print $employeeList;
   }
