@@ -37,5 +37,3 @@ if (isset($error)) {
 
 $View = new EmployeeView($Employee);
 $View->render();
-
-?>
