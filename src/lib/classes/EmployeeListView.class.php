@@ -86,13 +86,13 @@ class EmployeeListView {
   private function _getSortModule () {
     $selected[$this->_collection->sortBy] = 'selected';
 
-    $html = sprintf('<div class="sort">
+    $html = sprintf('<nav class="sort">
         <p>Sort by:</p>
         <ul class="no-style">
           <li><a class="%s" href="%s/lastname/">Last Name</a></li>
           <li><a class="%s" href="%s/location/">Location</a></li>
         </ul>
-      </div>',
+      </nav>',
       $selected['lastname'],
       $GLOBALS['CONFIG']['MOUNT_PATH'],
       $selected['location'],
