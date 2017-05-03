@@ -19,8 +19,8 @@ class EmployeeCollection {
    *
    * @param $employee {Object}
    */
-  public function add ($employee) {
-    $this->employees[] = $employee;
+  public function add ($Employee) {
+    $this->employees[] = $Employee;
   }
 
   /**
