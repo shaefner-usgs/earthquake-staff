@@ -7,11 +7,11 @@
  */
 class EmployeeListView {
   private $_collection;
-  private $_letters;
+  private $_sets;
 
   public function __construct (EmployeeCollection $collection) {
     $this->_collection = $collection;
-    $this->_letters = [];
+    $this->_sets = [];
   }
 
   /**
@@ -20,19 +20,25 @@ class EmployeeListView {
    * @return $html {String}
    */
   private function _getEmployeeList () {
-    $firstLetterPrev = '';
     $html = '<table>';
+    $setPrev = '';
+    $sortField = $this->_collection->sortField;
 
     foreach ($this->_collection->employees as $employee) {
-      $firstLetter = $employee->getFirstLetter();
-      if ($firstLetterPrev !== $firstLetter) {
-        $html .= sprintf('<tr id="%s" class="header"><th colspan="3">%s</th></tr>',
-          $firstLetter,
-          $firstLetter
-        );
-        $this->_letters[] = $firstLetter;
+      if ($sortField === 'lastname') {
+        $set = $employee->getFirstLetter();
+      } else if ($sortField === 'location') {
+        $set = $employee->location;
       }
-      $firstLetterPrev = $firstLetter;
+
+      if ($setPrev !== $set) {
+        $html .= sprintf('<tr id="%s" class="header"><th colspan="3">%s</th></tr>',
+          $set,
+          $set
+        );
+        $this->_sets[] = $set;
+      }
+      $setPrev = $set;
 
       $html .= sprintf ('<tr>
           <td><a href="%s/">%s</a></td><td>%s</td><td>%s</td>
@@ -57,10 +63,10 @@ class EmployeeListView {
   private function _getJumpList () {
     $html = '<nav class="jumplist">';
 
-    foreach($this->_letters as $letter) {
+    foreach($this->_sets as $set) {
       $html .= sprintf('<a href="#%s">%s</a>',
-        $letter,
-        $letter
+        $set,
+        $set
       );
     }
 
@@ -73,7 +79,7 @@ class EmployeeListView {
    * Render HTML
    */
   public function render () {
-    $employeeList = $this->_getEmployeeList(); // creates letters[] used by _getJumpList
+    $employeeList = $this->_getEmployeeList(); // creates $this->_sets[] used by _getJumpList
 
     print $this->_getJumpList();
     print $employeeList;
