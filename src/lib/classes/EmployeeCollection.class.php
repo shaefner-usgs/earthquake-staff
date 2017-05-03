@@ -7,11 +7,11 @@
  */
 class EmployeeCollection {
   public $employees;
-  public $sortField;
+  public $sortBy;
 
   public function __construct () {
     $this->employees = [];
-    $this->sortField = 'lastname'; // default value
+    $this->sortBy = 'lastname'; // default value
   }
 
   /**
@@ -39,10 +39,10 @@ class EmployeeCollection {
 
     if ($sortBy === 'lastname') {
       array_multisort($lastname, SORT_ASC, $firstname, SORT_ASC, $this->employees);
-      $this->sortField = $sortBy;
+      $this->sortBy = $sortBy;
     } else if ($sortBy === 'location') {
       array_multisort($location, SORT_ASC, $lastname, SORT_ASC, $this->employees);
-      $this->sortField = $sortBy;
+      $this->sortBy = $sortBy;
     }
   }
 }
