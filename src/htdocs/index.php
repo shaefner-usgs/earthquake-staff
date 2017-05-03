@@ -10,10 +10,12 @@ include_once '../lib/classes/EmployeeCollection.class.php'; // collection
 
 if (!isset($TEMPLATE)) {
   $TITLE = 'Earthquake Science Center Staff Directory';
-  $HEAD = '<link rel="stylesheet" href="css/index.css" />';
+  $HEAD = '<link rel="stylesheet" href="' . $CONFIG['MOUNT_PATH'] . '/css/index.css" />';
 
   include 'template.inc.php';
 }
+
+$sortBy = safeParam('sortBy', 'lastname');
 
 // Query db
 $Db = new Db();
@@ -26,8 +28,8 @@ $Employees = $rsEmployees->fetchAll();
 foreach($Employees as $Employee) {
   $EmployeeCollection->add($Employee);
 }
+$EmployeeCollection->sort($sortBy);
 
+// Create and render view
 $View = new EmployeeListView($EmployeeCollection);
 $View->render();
-
-?>
