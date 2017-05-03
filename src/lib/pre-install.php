@@ -64,6 +64,8 @@ file_put_contents($HTTPD_CONF, '
   RewriteEngine on
 
   #Pretty URLs
+  RewriteRule ^' . $MOUNT_PATH . '/(lastname|location)/$ ' .
+    $MOUNT_PATH . '/index.php?sortBy=$1 [L,PT]
   RewriteRule ^' . $MOUNT_PATH . '/([a-z0-9\.-_]+)/$ ' .
     $MOUNT_PATH . '/employee.php?id=$1 [L,PT]
 
