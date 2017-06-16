@@ -3,11 +3,11 @@
 include_once '../conf/config.inc.php'; // app config
 
 /**
- * Employees list view - creates HTML for index.php
+ * Employee list view - creates HTML for index.php
  *
  * @author Scott Haefner <shaefner@usgs.gov>
  */
-class EmployeeListView {
+class IndexView {
   private $_collection;
   private $_sets;
 
@@ -27,7 +27,7 @@ class EmployeeListView {
     $sortBy = $this->_collection->sortBy;
 
     foreach ($this->_collection->employees as $employee) {
-      if ($sortBy === 'lastname') {
+      if ($sortBy === 'name') {
         $set = $employee->getFirstLetter();
       } else if ($sortBy === 'location') {
         $set = $employee->location;
@@ -89,11 +89,11 @@ class EmployeeListView {
     $html = sprintf('<nav class="sort">
         <p>Sort by:</p>
         <ul class="no-style">
-          <li><a class="%s" href="%s/lastname/">Last Name</a></li>
+          <li><a class="%s" href="%s/name/">Last Name</a></li>
           <li><a class="%s" href="%s/location/">Location</a></li>
         </ul>
       </nav>',
-      $selected['lastname'],
+      $selected['name'],
       $GLOBALS['CONFIG']['MOUNT_PATH'],
       $selected['location'],
       $GLOBALS['CONFIG']['MOUNT_PATH']
