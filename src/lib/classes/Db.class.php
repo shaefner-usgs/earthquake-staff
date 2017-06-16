@@ -5,29 +5,18 @@ include_once '../lib/_functions.inc.php'; // app functions
 /**
  * Database connector and queries for app
  *
- * @param $connectionType {String} default is NULL
- *     pass in 'write' to create a connection with write privileges
- *
  * @author Scott Haefner <shaefner@usgs.gov>
  */
 class Db {
-  private static $db;
-  private $_pdo;
+  private $db, $_pdo;
 
-  public function __construct($connectionType=NULL) {
-    if ($connectionType === 'write') {
-      $this->_pdo = [
-        'db' => $GLOBALS['DB_WRITE_DSN'],
-        'user' => $GLOBALS['DB_WRITE_USER'],
-        'pass' => $GLOBALS['DB_WRITE_PASS']
-      ];
-    } else {
-      $this->_pdo = [
-        'db' => $GLOBALS['DB_DSN'],
-        'user' => $GLOBALS['DB_USER'],
-        'pass' => $GLOBALS['DB_PASS']
-      ];
-    }
+  public function __construct() {
+    $this->_pdo = [
+      'db' => $GLOBALS['DB_DSN'],
+      'user' => $GLOBALS['DB_USER'],
+      'pass' => $GLOBALS['DB_PASS']
+    ];
+
     try {
       $this->db = new PDO($this->_pdo['db'], $this->_pdo['user'], $this->_pdo['pass']);
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -94,22 +83,22 @@ class Db {
    * Get staff member(s)
    *
    * @param $shortname {String}
-   *     Optional email shortname (text before '@') of staff member to query
+   *     Optional email shortname (text before '@') of employee to query
    */
-  public function queryMembers ($shortname=NULL) {
-    $join = '';
+  public function selectEmployees ($shortname=NULL) {
     $params = [];
-    $where = '`team` = "WEHZ"';
+    $joinClause = '';
+    $whereClause = '';
 
     if ($shortname) {
-      $join = 'LEFT JOIN teaminfo_locations n USING (location)';
       $params['shortname'] = "$shortname@%";
-      $where .= ' AND `email` LIKE :shortname';
+      $joinClause = 'LEFT JOIN esc_locations USING (location)';
+      $whereClause .= 'WHERE `email` LIKE :shortname';
     }
 
-    $sql = "SELECT * FROM teaminfo_members
-      $join
-      WHERE $where
+    $sql = "SELECT * FROM esc_employees
+      $joinClause
+      $whereClause
       ORDER BY `lastname` ASC, `firstname` ASC";
 
     return $this->_execQuery($sql, $params);

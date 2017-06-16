@@ -8,11 +8,11 @@ include_once '../lib/classes/Employee.class.php'; // model
 include_once '../lib/classes/EmployeeView.class.php'; // view
 
 if (!isset($TEMPLATE)) {
-  $id = safeParam('id');
+  $shortname = safeParam('shortname');
 
   // Query db
   $Db = new Db();
-  $rsEmployee = $Db->queryMembers($id);
+  $rsEmployee = $Db->selectEmployees($shortname);
 
   // Create Employee
   if ($rsEmployee->rowCount() === 1) {
