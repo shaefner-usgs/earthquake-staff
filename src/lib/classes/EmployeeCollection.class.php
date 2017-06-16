@@ -37,7 +37,7 @@ class EmployeeCollection {
       $location[$index] = strtolower($Employee->location);
     }
 
-    if ($sortBy === 'lastname') {
+    if ($sortBy === 'name') {
       array_multisort($lastname, SORT_ASC, $firstname, SORT_ASC, $this->employees);
       $this->sortBy = $sortBy;
     } else if ($sortBy === 'location') {
